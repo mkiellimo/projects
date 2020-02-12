@@ -1,30 +1,18 @@
 README
 ======
 
-This directory should be used to place project specfic documentation including
-but not limited to project notes, generated API/phpdoc documentation, or
-manual files generated or hand written.  Ideally, this directory would remain
-in your development environment only and should not be deployed with your
-application to it's final production location.
+Il Backend è basato sull oggetto di tipo validation che usa le @assert impostate nelle entity per validare la chiamata che gli arriva dall'ecommerce.
+Questo oggetto può rispondere o con un oggetto doctrine che poi mi servirà per salvare eeffettivamente i campi a db, oppure con un array che userò per la presentazione del dato sul frontend.
+L'oggetto validation rinomina i capi qualora ci sia impostato un eventuale mapping e li valida.
+Se il validatore trova delle differenze ripetto a come mi aspetto l'ogetto order della richiesta solleva un eccezione mandando un email e rispondendo con un json con un errore
+HTTP_BAD_REQUEST.
 
+http://philipp_plein.local/api/order_search :
+Chiamata per inserire gli ordini a Db
 
-Setting Up Your VHOST
-=====================
-
-The following is a sample VHOST you might want to consider for your project.
-
-<VirtualHost *:80>
-   DocumentRoot "/var/www/ZendApp/public"
-   ServerName ZendApp.local
-
-   # This should be omitted in the production environment
-   SetEnv APPLICATION_ENV development
-
-   <Directory "/var/www/ZendApp/public">
-       Options Indexes MultiViews FollowSymLinks
-       AllowOverride All
-       Order allow,deny
-       Allow from all
-   </Directory>
-
-</VirtualHost>
+la chiamata per vedere gli ordini che ho salavto a Db è la seguente:
+http://philipp_plein.local/api/get_order
+PARAMS : id_order
+TYPE GET
+Viene richiamata su ogni riga premendo il tasto "refresh"
+Per la demo funzionarà solo per il primo ordine dato che ho mokkato la risposta dell e-commere nel controller.
